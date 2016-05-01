@@ -25,7 +25,8 @@ cron:
 5. day of week
 
 All of this five elemets need to be replaced with the cron expression that allow :
-1. * for anytime
-2. n for a specified number
-3. [n1-n2] for a range 
-4. */n every n (minutes/hours/day/etc.etc.)
+
+1. * for anytime 
+2. n for a specified number 
+3. [n1-n2] for a range  
+4. */n every n (minutes/hours/day/etc.etc.) 
