@@ -1,6 +1,11 @@
 #Amazon
 
 ##Cron.yaml
+
+### TIMEZONE
+Pay attention there is a BUG on the amazon scheduler so you datetime for the scheduler is ALWAYS UTC!!!!!
+https://forums.aws.amazon.com/thread.jspa?messageID=707108&#707108
+
 This is the file to execute cronjob on amazon and need to be place in the root of your application. 
 This is a sample of the code that you need to put in the file:
 ```
