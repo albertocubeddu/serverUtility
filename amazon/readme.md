@@ -34,6 +34,6 @@ All of this five elemets need to be replaced with the cron expression that allow
 
 1. * for anytime 
 2. n for a specified number 
-3. [n1-n2] for a range INCLUSIVE 
-4. [n1,n3,n5] for a selected item. 
+3. n1-n2 for a range INCLUSIVE 
+4. n1,n3,n5 for a selected item. 
 5. */n every n (minutes/hours/day/etc.etc.) 
