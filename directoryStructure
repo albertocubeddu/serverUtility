@@ -1,0 +1,4 @@
+#Store all the 
+find . -type d >dirs.txt
+
+xargs mkdir -p <dirs.txt
