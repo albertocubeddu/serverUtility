@@ -1,0 +1,13 @@
+#No hang up and unzip the database
+nohup gunzip database.sql.gz &
+
+#enter on mysql and set up parameters
+mysql -u root -p
+
+set global net_buffer_length=1000000; --Set network buffer 
+set global max_allowed_packet=1000000000; --Set maximum allowed packet
+SET foreign_key_checks = 0; --Disable foreign key checking
+
+source database.sql --Import your sql dump file
+
+SET foreign_key_checks = 1; --Enable when the procedure is completed and maybe restore your network buffer and allowed packet.
