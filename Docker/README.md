@@ -7,7 +7,12 @@ docker build -t <tagThatYouPrefer> <locationDockerFile>
 eval "$(docker-machine env default)"
 
 ## Basic command
-docker ps (all the live container)
-docker exec -it <image_name> bash
-docker run -tid -p 80:80 -p 443:443 <image>
+docker ps (all the live container)   
+docker exec -it (imageName) bash   
+docker run -tid -p 80:80 -p 443:443 (imageName)   
 
+#### Stop all container
+docker stop \`docker ps -q\`
+
+#### Remove all container
+docker rm \`docker ps -aq\`
