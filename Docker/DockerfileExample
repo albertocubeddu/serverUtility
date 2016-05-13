@@ -1,0 +1,64 @@
+FROM ubuntu:14.04
+
+ENV LANG C.UTF-8
+
+# Set which kind of environment we want to use (can be setup in BUILD time)
+ARG DOCKERENV=development
+
+# Set the env variable DEBIAN_FRONTEND to noninteractive DO NOT ACCEPT MULTILINE!
+# Can accept variable name as ${NAME}
+ENV DEBIAN_FRONTEND=noninteractive ENVIRONMENT=${DOCKERENV} 
+
+# Updating the apt-get and downloading the package
+# Remove the apt list and clean all the .deb file donwloaded
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    openssl \
+    libapache2-mod-php5 \
+    php5-mysql \
+    php5-gd  \
+    php-pear \
+    php-apc \
+    php5-curl \
+    curl \
+    php5-xdebug \
+ && rm -rf /var/lib/apt/lists/*  \
+ && apt-get clean -y
+
+#remove all the default files and create default directory for apache
+RUN rm -rf /var/www/html/* \
+ && rm -rf /etc/apache2/sites-enabled/* 
+
+#Setup Apache and Database ENVIRONMENTAL VARIABLE
+ENV APACHE_RUN_USER=www-data \
+    APACHE_RUN_GROUP=www-data \
+    APACHE_LOG_DIR=/var/log/apache2 
+
+#activate apache mod
+RUN a2enmod php5 \ 
+ && a2enmod rewrite \ 
+ && a2enmod ssl \
+ && a2enmod headers 
+
+#Configure the conf file
+RUN sed -i 's/^ServerSignature/#ServerSignature/g' /etc/apache2/conf-enabled/security.conf; \
+    sed -i 's/^ServerTokens/#ServerTokens/g' /etc/apache2/conf-enabled/security.conf; \
+    echo "ServerSignature Off" >> /etc/apache2/conf-enabled/security.conf; \
+    echo "ServerTokens Prod" >> /etc/apache2/conf-enabled/security.conf; \
+    echo "SSLProtocol ALL -SSLv2 -SSLv3" >> /etc/apache2/apache2.conf;
+
+# Copy apache configuration
+COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf 
+COPY 001-default-ssl.conf /etc/apache2/sites-enabled/001-default-ssl.conf 
+
+# Copy certificate
+COPY external/${DOCKERENV}/key/cert/* /etc/ssl/certs/
+COPY external/${DOCKERENV}/key/private/* /etc/ssl/private/
+
+# Copy php configuration (if any)
+COPY external/$DOCKERENV/php/* /etc/php5/apache2/
+
+#Expose the port 80 (http) and 443 (https)
+EXPOSE 80 443
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
