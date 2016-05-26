@@ -16,3 +16,6 @@ docker stop \`docker ps -q\`
 
 #### Remove all container
 docker rm \`docker ps -aq\`
+
+#### Delete all images
+docker rmi $(docker images -q)
