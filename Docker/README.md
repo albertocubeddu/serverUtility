@@ -1,7 +1,7 @@
 #Docker Introduction
 
 ## Build from dockerfile
-docker build -t <tagThatYouPrefer> <locationDockerFile>
+docker build -t (tagThatYouPrefer) (locationDockerFile)
 
 ## Cofigure the shell
 eval "$(docker-machine env default)"
