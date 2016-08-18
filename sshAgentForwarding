@@ -1,0 +1,7 @@
+ssh-add -K myPrivateKey.pem
+
+ssh-add –L
+
+ssh –A user@<bastion-IP-address or DNS-entry>
+
+ssh -i <privateKeyOfThisServer.pem> user@<instance-IP-address or DNS-entry>
