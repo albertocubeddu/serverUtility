@@ -1,7 +1,7 @@
 #Docker Introduction
 
 ## Build from dockerfile
-docker build -t (tagThatYouPrefer) (locationDockerFile)
+docker build -t (tagThatYouPrefer) (locationDockerFile) --build-arg (replace the ARG)
 
 ## Cofigure the shell
 eval "$(docker-machine env default)"
@@ -19,3 +19,5 @@ docker rm \`docker ps -aq\`
 
 #### Delete all images
 docker rmi $(docker images -q)
+
+
