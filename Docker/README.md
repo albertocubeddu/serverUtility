@@ -21,3 +21,10 @@ docker rm \`docker ps -aq\`
 docker rmi $(docker images -q)
 
 
+#Docker composer
+docker-compose up
+docker-compose down
+docker-compose build
+
+docker-compose up --build
+
