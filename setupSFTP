@@ -1,0 +1,24 @@
+#Go to /etc/ssh/sshd_config
+#Subsystem sftp /usr/lib/openssh/sftp-server  
+Subsystem sftp internal-sftp  
+
+#We want to match a determined usergroup to apply the below settings
+Match Group sftpusers
+ PasswordAuthentication no    #If you need password authentication enable it.
+ ChrootDirectory %h           #Chroot to the home directory of the user
+ X11Forwarding no             #Sftp environment we shouldn't need X11
+ AllowTcpForwarding no        #Disable TcpForwarding we want a straight connection to the SFTP
+ ForceCommand internal-sftp   #We want to use the new one (sftp-server is used just for backward compatibility) And with Chroot we don't need to setup anything else
+ 
+#### assign SFTP group  and prevent ssh login and
+sudo usermod -g sftpusers username  
+sudo usermod -s /bin/nologin username  
+
+#### chroot user (so they only see their directory after login)  
+sudo mkdir /home/username/
+sudo mkdir /home/username/uploads  
+sudo chown username:username /home/username/uploads  
+sudo chmod 755 /home/username/uploads  
+
+sudo chown root:username /home/username  
+sudo chmod 755 /home/username  
