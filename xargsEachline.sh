@@ -6,3 +6,7 @@
 #             utility itself.  Implies -x.
 
 cat fileName | xargs -I{} cp {} directory/
+
+
+#Multiple commands
+cat fileName | xargs -I{} sh -c 'command1; command2 {}; ...'
