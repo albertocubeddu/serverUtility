@@ -1,0 +1,4 @@
+#copy from s3
+
+#find all the gz file
+find . -type f -name "*.gz" -exec gunzip "{}" \;
