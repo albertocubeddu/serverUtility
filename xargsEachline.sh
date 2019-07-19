@@ -10,3 +10,7 @@ cat fileName | xargs -I{} cp {} directory/
 
 #Multiple commands
 cat fileName | xargs -I{} sh -c 'command1; command2 {}; ...'
+
+
+#Multi Processor
+cat fileName | xargs -P 0 -L 1 -I{} cp {} directory/
