@@ -1,0 +1,3 @@
+aws logs describe-log-groups > /tmp/group.txt
+cat /tmp/group.txt | jq -r '.logGroups[] | if .retentionInDays then empty else .logGroupName end' > update.txt
+cat update.txt | xargs -I{} aws logs put-retention-policy --log-group-name {} --retention-in-days 30
