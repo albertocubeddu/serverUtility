@@ -1,0 +1,4 @@
+ls -l | awk '{print $9}' | awk -F "." '{print $1}'
+
+#printout the function name of a file e.g function asd() => asd
+sed -nE 's/.*function(.*)\(.*/\1/p' filename.ext
