@@ -1,0 +1,2 @@
+curl --user "alberto.cubeddu@wathever.com.au" https://api.bitbucket.org/2.0/repositories/<<repo-team>>?pagelen=100 > text.txt
+cat text.txt |  jq '.values[] | .links.clone[1].href' > repo.git
