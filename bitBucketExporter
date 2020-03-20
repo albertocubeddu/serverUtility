@@ -1,3 +1,7 @@
 curl --user "alberto.cubeddu@wathever.com.au" https://api.bitbucket.org/2.0/repositories/<<repo-team>>?pagelen=100 > text.txt
 cat text.txt |  jq '.values[] | .links.clone[1].href' > repo.git
 cat repo.git | xargs -P 8 -L 1 -I{} git clone {}
+
+
+#retrieve name of the directory
+cat directories.txt | xargs -I{} git --git-dir={}/.git log --no-merges --since='11-01-2019' --pretty=format:'"@"%h","{}","%an","%s"' --shortstat |grep -v \| |  tr "\n" " "  |  tr "@" "\n"
