@@ -4,4 +4,4 @@ cat repo.git | xargs -P 8 -L 1 -I{} git clone {}
 
 
 #retrieve name of the directory
-cat directories.txt | xargs -I{} git --git-dir={}/.git log --no-merges --since='11-01-2019' --pretty=format:'"@"%h","{}","%an","%s"' --shortstat |grep -v \| |  tr "\n" " "  |  tr "@" "\n"
+cat directories.txt | xargs -I{} git --git-dir={}/.git log --date=short --no-merges --since='11-01-2019' --pretty=format:'"@"%h","{}","%an","%s", "%ad"' --shortstat |grep -v \| |  tr "\n" " "  |  tr "@" "\n"
