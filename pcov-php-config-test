@@ -11,3 +11,11 @@ fi
 RUN if [ "$DOCKERENV" = "development" ]; then \
     composer require pcov/clobber; \
 fi
+
+
+######
+#PHP.INI
+#######
+extension=pcov.so
+[pcov]
+pcov.enabled=1
