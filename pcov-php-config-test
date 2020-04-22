@@ -1,0 +1,13 @@
+#to be able to run test very fast.
+RUN if [ "$DOCKERENV" = "development" ]; then \
+    apk add php7-dev gcc g++ make php-tokenizer php-simplexml php-xmlwriter && \
+    pecl install pcov && \
+    mkdir -p /var/symfony/cache && \
+    chmod 777 /var/symfony/cache && \
+    mkdir -p /var/symfony/logs && \
+    chmod 777 /var/symfony/logs; \
+fi
+
+RUN if [ "$DOCKERENV" = "development" ]; then \
+    composer require pcov/clobber; \
+fi
